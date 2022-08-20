@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <div>
-      {show&&<h3>{title}</h3>}
+      {show&&<Header title={title}/>}
       <InputComponent title={title} setTitle={setTitle}/>
       <Header title={`count : ${count}`}/>
       <CountComponent count={count} setCount={setCount}/>
