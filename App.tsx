@@ -14,25 +14,21 @@ Header.defaultProps = {
 }
 
 export default function App() {
-  const [title, setTitle] = React.useState<string>('init value');
-  const [name, setName] = React.useState<string>();
-  const [names, setNames]= React.useState<string[]>([]);
+  const [email, setEmail] = React.useState<string>();
+  const [password, setPasswoed]= React.useState<string>();
 
   const handleSubmit = (event) =>{
     event.preventDefault();
-    setNames((ns)=> {return [...ns, name]})
-    setName('')
+    alert("success")
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input value={name} onChange={(e)=>setName(e.target.value)}/>
+        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <input type="password" value={password} onChange={(e)=>setPasswoed(e.target.value)}/>
         <button>submit</button>
       </form>
-      <ul>
-      {names.map((n, index)=><li key={index}>{n}</li>)}
-      </ul>
     </div>
   );
 }
