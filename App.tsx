@@ -15,20 +15,24 @@ Header.defaultProps = {
 
 export default function App() {
   const [title, setTitle] = React.useState<string>('init value');
-  const [count, setCount] = React.useState<number>(0);
-  const [show, setShow] = React.useState<boolean>(false);
+  const [name, setName] = React.useState<string>();
+  const [names, setNames]= React.useState<string[]>([]);
 
-  React.useEffect(()=>{
-    setShow(count>=0&&count<=5&&title==='show')
-  },[title])
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+    setNames((ns)=> {return [...ns, name]})
+    setName('')
+  }
 
   return (
     <div>
-      {show&&<Header title={title}/>}
-      <InputComponent title={title} setTitle={setTitle}/>
-      <Header title={`count : ${count}`}/>
-      <CountComponent count={count} setCount={setCount}/>
-      {count>0&&<button onClick={()=>setCount((c)=>c-1)}>decrease</button>}
+      <form onSubmit={handleSubmit}>
+        <input value={name} onChange={(e)=>setName(e.target.value)}/>
+        <button>submit</button>
+      </form>
+      <ul>
+      {names.map((n, index)=><li key={index}>{n}</li>)}
+      </ul>
     </div>
   );
 }
