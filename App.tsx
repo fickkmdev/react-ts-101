@@ -1,32 +1,25 @@
 import * as React from 'react';
 
-const contextValue = React.createContext(undefined);
-
-function Child1() {
-  return (
-    <contextValue.Consumer>
-      {(props) => {
-        return <div>child1 context: {props}</div>;
-      }}
-    </contextValue.Consumer>
-  );
-}
-
-function Child2() {
-  const props = React.useContext(contextValue);
-  return <div>child2 context: {props}</div>;
+function useTextTransform(textInput : string){
+  const [text, setText] = React.useState(textInput)
+  const upperCase = () =>{
+    setText(text.toUpperCase())
+  }
+  const lowerCase = () =>{
+    setText(text.toLowerCase())
+  }
+  return [text, setText, upperCase, lowerCase]
 }
 
 export default function App() {
-  const [value, setValue] = React.useState<string>();
+  const [text, setText, upper, lower] = useTextTransform('react 101')
 
   return (
-    <contextValue.Provider value={value}>
-      <div>
-        <Child1/>
-        <Child2/>
-        <input onChange={(e) => setValue(e.target.value)} />
-      </div>
-    </contextValue.Provider>
+    <div>
+      <div>{text}</div>
+      <button onClick={upper}>upper</button>
+      <button onClick={lower}>lower</button>
+      <input onChange={(e)=>setText(e.target.value)}/>
+    </div>
   );
 }
