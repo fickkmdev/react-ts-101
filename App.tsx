@@ -3,32 +3,26 @@ import CountComponent from './CountComponent';
 import InputComponent from './InputComponent';
 import './style.css';
 
-const Header = (props) =>{
-  return (
-    <h1 style={{color:props.color}}>{props.title}</h1>
-  )
-}
-
-Header.defaultProps = {
-  color:'red'
-}
-
 export default function App() {
-  const [email, setEmail] = React.useState<string>();
-  const [password, setPasswoed]= React.useState<string>();
-
-  const handleSubmit = (event) =>{
-    event.preventDefault();
-    alert("success")
-  }
+  const [value1, setValue1] = React.useState<string>('');
+  const [value2, setValue2] = React.useState<string>('');
+  const inputRef1 = React.useRef<HTMLInputElement>();
+  const inputRef2 = React.useRef<HTMLInputElement>();
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-        <input type="password" value={password} onChange={(e)=>setPasswoed(e.target.value)}/>
-        <button>submit</button>
-      </form>
+      <input
+        ref={inputRef1}
+        onChange={(e) => {
+          setValue1(e.target.value);
+          if (e.target.value.length > 2) {
+            inputRef2.current.focus();
+          }
+        }}
+      />
+      <input ref={inputRef2} />
+
+      <button>click</button>
     </div>
   );
 }
